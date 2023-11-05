@@ -1,0 +1,14 @@
+{
+  "[html][css][javascript][typescript][typescriptreact][json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[terraform][terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": true
+    }
+  }
+}
