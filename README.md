@@ -16,14 +16,18 @@
 ### 2. Prepare var files
 Create the following two configuration files.
 
-``` :terraform/production.tfbackend
+`terraform/production.tfbackend`
+
+``` tfvars
 resource_group_name  = "my-project-tfstate"
 storage_account_name = "tfstate01234567"
 container_name       = "tfstate"
 key                  = "production.tfstate"
 ```
 
-``` :terraform/production.tfvars
+`terraform/production.tfvars`
+
+``` tfvars
 project_name = "my-project-production"
 
 region = "japaneast"
