@@ -5,13 +5,13 @@
 ### 1. Prepare Azure
 1. Prepare Azure tenant and subscription
 2. Create below resources to store tfstate
-  1. Resource Group
-  2. Storage Account
-  3. Blob Container
+    1. Resource Group
+    2. Storage Account
+    3. Blob Container
 3. Create service principal for Terraform
-  1. Create Entra ID application
-  2. Create client secret
-  3. Assign the subscription's "Contributor" role to the application
+    1. Create Entra ID application
+    2. Create client secret
+    3. Assign the subscription's "Contributor" role to the application
 
 ### 2. Prepare var files
 Create the following two configuration files.
