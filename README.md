@@ -40,6 +40,8 @@ azure = {
     client_secret = "..."
   }
 }
+
+database = {}
 ```
 
 ### 3. Apply
