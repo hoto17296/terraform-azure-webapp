@@ -41,6 +41,10 @@ azure = {
   }
 }
 
+container_registry = {
+  name = "..."
+}
+
 database = {}
 ```
 

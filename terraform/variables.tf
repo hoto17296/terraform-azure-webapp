@@ -21,6 +21,13 @@ variable "azure" {
   })
 }
 
+variable "container_registry" {
+  type = object({
+    name = string
+    sku  = optional(string, "Basic")
+  })
+}
+
 variable "database" {
   type = object({
     administrator_login    = optional(string, "postgres")
