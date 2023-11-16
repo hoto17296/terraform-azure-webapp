@@ -1,0 +1,11 @@
+services:
+
+  app:
+    build: app
+    environment:
+      DEBUG: 1
+    init: true
+    ports:
+      - 8080:80
+    volumes:
+      - ./app:/app
