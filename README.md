@@ -71,3 +71,4 @@ $ terraform apply -var-file=production.tfvars
     - `GRANT ALL PRIVILEGES ON DATABASE <DB_NAME> TO "<SERVICE_PRINCIPAL_NAME>";`
     - `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "<SERVICE_PRINCIPAL_NAME>";`
 - Build and push application to ACR
+  - `az acr build --registry ${registry_name} --image app ./app`
