@@ -76,9 +76,9 @@ az acr build --registry ${registry_name} --image app ./app
     - `az webapp create-remote-connection --subscription ${subscription_id} --resource-group ${resource_group_name} -n ${app_service_name}`
 2. Connect to the database as an administrator user via the SSH tunnel
 3. Modify database settings
-  - Change initial password
+  - Change administrator user's initial password
   - Grant privileges to app service role
       - `GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO "${SERVICE_PRINCIPAL_NAME}";`
       - `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "${SERVICE_PRINCIPAL_NAME}";`
   - Create tables
-      - → [database/initdb.d/ddl.sql]
+      - → [database/initdb.d/ddl.sql](database/initdb.d/ddl.sql)
