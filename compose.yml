@@ -4,8 +4,22 @@ services:
     build: app
     environment:
       DEBUG: 1
+      DATABASE_URL: postgresql://postgres:deadbeef@database/postgres
     init: true
     ports:
       - 8080:80
     volumes:
       - ./app:/app
+
+  database:
+    image: postgres:15
+    volumes:
+      - database:/var/lib/postgresql/data
+      - ./database/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: deadbeef
+
+volumes:
+  database:
