@@ -45,6 +45,8 @@ container_registry = {
   name = "..."
 }
 
+app = {}
+
 database = {}
 ```
 
@@ -60,3 +62,12 @@ $ terraform plan -var-file=production.tfvars
 ``` console
 $ terraform apply -var-file=production.tfvars
 ```
+
+### 4. Do some operations manually in Azure Portal
+- Add the app service as Microsoft Entra administrator to the database auth settings
+- Connect to the database as an administrator user
+  - Change initial password
+  - Grant privileges to app service role
+    - `GRANT ALL PRIVILEGES ON DATABASE <DB_NAME> TO "<SERVICE_PRINCIPAL_NAME>";`
+    - `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "<SERVICE_PRINCIPAL_NAME>";`
+- Build and push application to ACR
