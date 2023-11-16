@@ -64,11 +64,21 @@ $ terraform apply -var-file=production.tfvars
 ```
 
 ### 4. Do some operations manually in Azure Portal
-- Add the app service as Microsoft Entra administrator to the database auth settings
-- Connect to the database as an administrator user
+#### 4.1 Build and push application to ACR
+```
+az acr build --registry ${registry_name} --image app ./app
+```
+
+#### 4.2 Add the app service as Microsoft Entra administrator to the database auth settings
+
+#### 4.3 Connect to the database and modify settings
+1. Create an SSH tunnel to the App Service container
+    - `az webapp create-remote-connection --subscription ${subscription_id} --resource-group ${resource_group_name} -n ${app_service_name}`
+2. Connect to the database as an administrator user via the SSH tunnel
+3. Modify database settings
   - Change initial password
   - Grant privileges to app service role
-    - `GRANT ALL PRIVILEGES ON DATABASE <DB_NAME> TO "<SERVICE_PRINCIPAL_NAME>";`
-    - `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "<SERVICE_PRINCIPAL_NAME>";`
-- Build and push application to ACR
-  - `az acr build --registry ${registry_name} --image app ./app`
+      - `GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO "${SERVICE_PRINCIPAL_NAME}";`
+      - `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "${SERVICE_PRINCIPAL_NAME}";`
+  - Create tables
+      - → [database/initdb.d/ddl.sql]
