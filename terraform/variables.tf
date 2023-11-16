@@ -28,6 +28,13 @@ variable "container_registry" {
   })
 }
 
+variable "app" {
+  type = object({
+    sku_name        = optional(string, "B1")
+    container_image = optional(string, "app:latest")
+  })
+}
+
 variable "database" {
   type = object({
     administrator_login    = optional(string, "postgres")
@@ -35,5 +42,6 @@ variable "database" {
     sku_name               = optional(string, "B_Standard_B1ms")
     storage_mb             = optional(number, 32768)
     version                = optional(string, "15")
+    entraid_auth_tenant_id = optional(string)
   })
 }

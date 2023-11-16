@@ -42,4 +42,12 @@ resource "azurerm_postgresql_flexible_server" "main" {
   sku_name   = var.database.sku_name
   depends_on = [azurerm_private_dns_zone_virtual_network_link.database]
 
+  authentication {
+    active_directory_auth_enabled = true
+    tenant_id                     = var.database.entraid_auth_tenant_id == null ? var.azure.tenant_id : var.database.entraid_auth_tenant_id
+  }
+
+  lifecycle {
+    ignore_changes = [zone]
+  }
 }
