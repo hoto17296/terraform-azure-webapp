@@ -31,8 +31,10 @@ resource "azurerm_linux_web_app" "main" {
   https_only                = true
 
   app_settings = {
-    DATABASE_HOST                       = azurerm_postgresql_flexible_server.main.fqdn
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
+    DATABASE_HOST                         = azurerm_postgresql_flexible_server.main.fqdn
+    DATABASE_MS_ENTRA_AUTH_PRINCIPAL_NAME = var.project_name
+    DOCKER_ENABLE_CI                      = true
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE   = false
   }
 
   identity {
