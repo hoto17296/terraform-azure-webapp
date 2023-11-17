@@ -11,7 +11,8 @@
 3. Create service principal for Terraform
     1. Create Entra ID application
     2. Create client secret
-    3. Assign the subscription's "Contributor" role to the application
+    3. Assign the subscription's **"Owner"** role to the application
+        - "Owner" is required because "Contributor" can't assign roles to resources
 
 ### 2. Prepare var files
 Create the following two configuration files.

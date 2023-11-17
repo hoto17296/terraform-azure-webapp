@@ -42,11 +42,11 @@ resource "azurerm_linux_web_app" "main" {
   }
 
   site_config {
+    container_registry_use_managed_identity = true
+
     application_stack {
-      docker_registry_url      = "https://${azurerm_container_registry.main.login_server}"
-      docker_registry_username = azurerm_container_registry.main.admin_username
-      docker_registry_password = azurerm_container_registry.main.admin_password
-      docker_image_name        = var.app.container_image
+      docker_registry_url = "https://${azurerm_container_registry.main.login_server}"
+      docker_image_name   = var.app.container_image
     }
   }
 
@@ -58,4 +58,10 @@ resource "azurerm_linux_web_app" "main" {
       }
     }
   }
+}
+
+resource "azurerm_role_assignment" "app_to_acr" {
+  scope                = azurerm_container_registry.main.id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_linux_web_app.main.identity.0.principal_id
 }
