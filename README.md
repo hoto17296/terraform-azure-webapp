@@ -79,7 +79,7 @@ az postgres flexible-server ad-admin create --resource-group ${project_name} --s
     - Change administrator user's initial password
     - Grant privileges to app service role
         - `GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO "${SERVICE_PRINCIPAL_NAME}";`
-        - `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO "${SERVICE_PRINCIPAL_NAME}";`
+        - `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO "${SERVICE_PRINCIPAL_NAME}";`
     - Create tables
         - → [database/initdb.d/ddl.sql](database/initdb.d/ddl.sql)
 
