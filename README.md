@@ -71,6 +71,9 @@ az acr build --registry ${registry_name} --image app ./app
 ```
 
 #### 4.2 Add the app service as Microsoft Entra administrator to the database auth settings
+```
+az postgres flexible-server ad-admin create --resource-group ${project_name} --server-name ${project_name} --display-name ${project_name} --object-id ${app_service_object_id} --type ServicePrincipal
+```
 
 #### 4.3 Connect to the database and modify settings
 1. Create an SSH tunnel to the App Service container
