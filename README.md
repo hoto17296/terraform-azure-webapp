@@ -53,15 +53,15 @@ database = {}
 
 ### 3. Apply
 ``` console
-$ terraform init -backend-config=production.tfbackend
+$ terraform -chdir=./terraform init -backend-config=production.tfbackend
 ```
 
 ``` console
-$ terraform plan -var-file=production.tfvars
+$ terraform -chdir=./terraform plan -var-file=production.tfvars
 ```
 
 ``` console
-$ terraform apply -var-file=production.tfvars
+$ terraform -chdir=./terraform apply -var-file=production.tfvars
 ```
 
 ### 4. Do some operations manually in Azure Portal
