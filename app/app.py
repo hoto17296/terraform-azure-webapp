@@ -1,22 +1,15 @@
-from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
-from database import create_pool
+from database import get_connection
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    app.extra["pg"] = await create_pool()
-    yield
-    await app.extra["pg"].close()
-
-
-app = FastAPI(lifespan=lifespan)
+app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    async with app.extra["pg"].acquire() as conn:
-        await conn.execute("INSERT INTO access_log DEFAULT VALUES")
-        count = await conn.fetchval("SELECT COUNT(1) FROM access_log")
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("INSERT INTO access_log DEFAULT VALUES")
+            cur.execute("SELECT COUNT(1) FROM access_log")
+            (count,) = cur.fetchone()
+        conn.commit()
     return {"count": count}
