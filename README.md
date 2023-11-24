@@ -5,11 +5,11 @@
 ### 1. Prepare Azure
 1. Prepare Azure tenant and subscription
 2. Create below resources to store tfstate
-    1. Resource Group
-    2. Storage Account
-    3. Blob Container
+    1. Resource Group (e.g. `my-project-tfstate`)
+    2. Storage Account (e.g. `tfstate01234567`)
+    3. Blob Container (e.g. `tfstate`)
 3. Create service principal for Terraform
-    1. Create Entra ID application
+    1. Create Entra ID application (e.g. `my-project-terraform`)
     2. Create client secret
     3. Assign the subscription's **"Owner"** role to the application
         - "Owner" is required because "Contributor" can't assign roles to resources
@@ -43,7 +43,7 @@ azure = {
 }
 
 container_registry = {
-  name = "..."
+  name = "myprojectproduction"
 }
 
 app = {}
