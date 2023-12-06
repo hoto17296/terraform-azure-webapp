@@ -1,5 +1,6 @@
-from os import getenv
 import logging
+from os import getenv
+
 import uvicorn
 
 DEBUG = bool(int(getenv("DEBUG", "0")))

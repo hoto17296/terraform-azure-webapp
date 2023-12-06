@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.12
 
 # Allow ssh access from Azure Portal
 RUN apt-get update \

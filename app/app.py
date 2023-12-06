@@ -1,15 +1,17 @@
-from fastapi import FastAPI
-from database import get_connection
+from fastapi import Depends, FastAPI
+from models import AccessLog
+from sqlmodel import func, select
+from sqlmodel.ext.asyncio.session import AsyncSession
+
+from database import get_db_session
 
 app = FastAPI()
 
 
 @app.get("/")
-async def root():
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("INSERT INTO access_log DEFAULT VALUES")
-            cur.execute("SELECT COUNT(1) FROM access_log")
-            (count,) = cur.fetchone()
-        conn.commit()
+async def root(db: AsyncSession = Depends(get_db_session)):
+    db.add(AccessLog())
+    await db.commit()
+    statement = select(func.count(AccessLog.id))
+    count = (await db.exec(statement)).one()
     return {"count": count}
