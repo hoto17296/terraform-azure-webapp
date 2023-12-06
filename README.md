@@ -66,24 +66,26 @@ $ terraform -chdir=./terraform apply -var-file=production.tfvars
 
 ### 4. Do some operations manually in Azure Portal
 
-#### 4.1 Add the app service as Microsoft Entra administrator to the database auth settings
+#### 4.1 Build and push application to ACR
+```
+az acr build --registry ${registry_name} --image app ./app
+```
+
+#### 4.2 Add the app service as Microsoft Entra administrator to the database auth settings
 ```
 az postgres flexible-server ad-admin create --resource-group ${project_name} --server-name ${project_name} --display-name ${project_name} --object-id ${app_service_object_id} --type ServicePrincipal
 ```
 
-#### 4.2 Connect to the database and modify settings
+#### 4.3 Connect to the database and modify settings
 1. Create an SSH tunnel to the App Service container
     - `az webapp create-remote-connection --subscription ${subscription_id} --resource-group ${resource_group_name} -n ${app_service_name}`
 2. Connect to the database as an administrator user via the SSH tunnel
 3. Modify database settings
     - Change administrator user's initial password
+        - `ALTER USER postgres WITH PASSWORD '<NEW_PASSWORD>'`
     - Grant privileges to app service role
         - `GRANT ALL PRIVILEGES ON DATABASE ${DB_NAME} TO "${SERVICE_PRINCIPAL_NAME}";`
         - `ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO "${SERVICE_PRINCIPAL_NAME}";`
     - Create tables
         - → [database/initdb.d/ddl.sql](database/initdb.d/ddl.sql)
 
-#### 4.3 Build and push application to ACR
-```
-az acr build --registry ${registry_name} --image app ./app
-```
