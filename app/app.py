@@ -20,8 +20,11 @@ async def root(db: AsyncSession = Depends(get_db_session)):
 
 @app.get("/me")
 async def me(request: Request):
+    access_token = request.headers.get("x-ms-token-aad-access-token")
     id_token = request.headers.get("x-ms-token-aad-id-token")
-    if id_token is None:
+    if access_token is None or id_token is None:
         return Response(status_code=401)
-    claims: dict = jwt.decode(id_token, options={"verify_signature": False})
-    return {"claims": claims}
+    return {
+        "access_token": jwt.decode(access_token, options={"verify_signature": False}),
+        "id_token": jwt.decode(id_token, options={"verify_signature": False}),
+    }
