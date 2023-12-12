@@ -9,7 +9,7 @@ $ docker compose up
 
 ### Run test
 ``` console
-$ docker compose exec app pytest
+$ docker compose exec app python -m pytest
 ```
 
 ## Deploy to Azure
