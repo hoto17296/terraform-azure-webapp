@@ -15,5 +15,8 @@ async def db(scope="function"):
         await session.exec(text("DROP SCHEMA public CASCADE"))
         await session.exec(text("CREATE SCHEMA public"))
         with open("/database/ddl.sql", "rt") as f:
-            await session.exec(text(f.read()))
+            for statement in f.read().split(";"):
+                statement = statement.strip()
+                if statement:
+                    await session.exec(text(statement))
         yield session
