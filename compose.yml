@@ -10,6 +10,7 @@ services:
       - 8080:80
     volumes:
       - ./app:/app
+      - ./database/initdb.d/ddl.sql:/database/ddl.sql
 
   database:
     image: postgres:15

@@ -9,6 +9,7 @@ DEBUG = bool(int(getenv("DEBUG", "0")))
 
 if getenv("DATABASE_URL"):
     dsn = getenv("DATABASE_URL")
+# Microsoft Entra ID Authentication
 elif getenv("DATABASE_HOST") and getenv("DATABASE_MS_ENTRA_AUTH_PRINCIPAL_NAME"):
     host = getenv("DATABASE_HOST")
     port = getenv("DATABASE_PORT", 5432)
@@ -18,6 +19,10 @@ elif getenv("DATABASE_HOST") and getenv("DATABASE_MS_ENTRA_AUTH_PRINCIPAL_NAME")
     dsn = f"postgresql://{username}:{password}@{host}:{port}/{database}"
 else:
     raise Exception("No valid database connection information")
+
+schema = "postgresql://"
+if dsn[: len(schema)] != schema:
+    raise Exception("Invalid database schema")
 
 engine = create_async_engine(dsn.replace("postgresql://", "postgresql+asyncpg://"), echo=DEBUG)
 AsyncSessionMaker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)

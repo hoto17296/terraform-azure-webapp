@@ -1,5 +1,17 @@
 # Terraform Azure Webapp
 
+## Develop application
+
+### Start dev server
+``` console
+$ docker compose up
+```
+
+### Run test
+``` console
+$ docker compose exec app python -m pytest
+```
+
 ## Deploy to Azure
 
 ### 1. Prepare Azure

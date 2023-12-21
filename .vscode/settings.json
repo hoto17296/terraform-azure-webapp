@@ -8,7 +8,7 @@
     "editor.defaultFormatter": "hashicorp.terraform",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.formatAll.terraform": true
+      "source.formatAll.terraform": "explicit"
     }
   },
   "[python]": {
@@ -16,7 +16,7 @@
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true
+      "source.organizeImports": "explicit"
     }
   }
 }
